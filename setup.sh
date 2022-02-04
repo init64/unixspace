@@ -38,7 +38,7 @@ case "$1" in
   "--set-env")
     echo "Env Setup Starting..." | boxes -d stone
     # OhMyZSH setup
-    sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" 
+    sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" &
     # Docker installtion
     apt-get remove docker docker-engine docker.io containerd runc
     apt-get install -y \
