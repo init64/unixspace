@@ -46,10 +46,10 @@ case "$1" in
       curl \
       gnupg \
       lsb-release
-    curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+    curl -fsSL https://download.docker.com/linux/debian/gpg | gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
     echo \
       "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/debian \
-      $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+      $(lsb_release -cs) stable" | tee /etc/apt/sources.list.d/docker.list > /dev/null
     apt-get install docker-ce docker-ce-cli containerd.io
     # Enabling docker
     systemctl enable docker
@@ -63,14 +63,14 @@ case "$1" in
     cp -r lib/* /lib
     cp -r share/ /usr/share
     # MonogoDB installtion
-    wget -qO - https://www.mongodb.org/static/pgp/server-5.0.asc | sudo apt-key add -
+    wget -qO - https://www.mongodb.org/static/pgp/server-5.0.asc | apt-key add -
     touch /etc/apt/sources.list.d/mongodb-org-5.0.list
     apt update
-    echo "mongodb-org hold" | sudo dpkg --set-selections
-    echo "mongodb-org-database hold" | sudo dpkg --set-selections
-    echo "mongodb-org-server hold" | sudo dpkg --set-selections
-    echo "mongodb-org-shell hold" | sudo dpkg --set-selections
-    echo "mongodb-org-mongos hold" | sudo dpkg --set-selections
-    echo "mongodb-org-tools hold" | sudo dpkg --set-selections``
+    echo "mongodb-org hold" | dpkg --set-selections
+    echo "mongodb-org-database hold" | dpkg --set-selections
+    echo "mongodb-org-server hold" | dpkg --set-selections
+    echo "mongodb-org-shell hold" | dpkg --set-selections
+    echo "mongodb-org-mongos hold" | dpkg --set-selections
+    echo "mongodb-org-tools hold" | dpkg --set-selections``
     ;;
 esac
