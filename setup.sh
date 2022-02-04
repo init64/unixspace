@@ -1,5 +1,8 @@
 #/bin/sh
 
+nodejs_url="https://nodejs.org/dist/v16.13.2/node-v16.13.2-linux-x64.tar.xz"
+nodejs_dirname="node-v16.13.2-linux-x64"
+
 fetch_req(  ) {
   apt install -y \
     boxes \
@@ -55,22 +58,21 @@ case "$1" in
     systemctl enable docker
     systemctl start docker
     # Nodejs installtion
-    wget https://nodejs.org/dist/v16.13.2/node-v16.13.2-linux-x64.tar.xz
-    tar -xvf node-v16.13.2-linux-x64.tar.xz
-    cd node-v16.13.2-linux-x64.tar.xz 
-    cp -r bin/* /bin
-    cp -r include/* /usr/include
-    cp -r lib/* /lib
-    cp -r share/ /usr/share
+    wget $nodejs_url 
+    tar -xvf $nodejs_dirname.tar.xz
+    cp -r $nodejs_dirname/bin/* /bin
+    cp -r $nodejs_dirname/include/* /usr/include
+    cp -r $nodejs_dirname/lib/* /lib
+    cp -r $nodejs_dirname/share/ /usr/share
     # MonogoDB installtion
-    wget -qO - https://www.mongodb.org/static/pgp/server-5.0.asc | apt-key add -
-    touch /etc/apt/sources.list.d/mongodb-org-5.0.list
-    apt update
-    echo "mongodb-org hold" | dpkg --set-selections
-    echo "mongodb-org-database hold" | dpkg --set-selections
-    echo "mongodb-org-server hold" | dpkg --set-selections
-    echo "mongodb-org-shell hold" | dpkg --set-selections
-    echo "mongodb-org-mongos hold" | dpkg --set-selections
-    echo "mongodb-org-tools hold" | dpkg --set-selections``
+    # wget -qO - https://www.mongodb.org/static/pgp/server-5.0.asc | apt-key add -
+    # touch /etc/apt/sources.list.d/mongodb-org-5.0.list
+    # apt update
+    # echo "mongodb-org hold" | dpkg --set-selections
+    # echo "mongodb-org-database hold" | dpkg --set-selections
+    # echo "mongodb-org-server hold" | dpkg --set-selections
+    # echo "mongodb-org-shell hold" | dpkg --set-selections
+    # echo "mongodb-org-mongos hold" | dpkg --set-selections
+    # echo "mongodb-org-tools hold" | dpkg --set-selections``
     ;;
 esac
