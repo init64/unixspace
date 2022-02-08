@@ -4,17 +4,44 @@ nodejs_url="https://nodejs.org/dist/v16.13.2/node-v16.13.2-linux-x64.tar.xz"
 nodejs_dirname="node-v16.13.2-linux-x64"
 
 fetch_req(  ) {
+  apt update -y
   apt install -y \
-    boxes \
+    # Tools
+    htop \
+    wget \
     neovim \
     zsh \
     irssi \
+    tmux \
+    # Base utils
+    boxes \
     proxychains \
     git \
     curl \
-    htop \
-    wget \
-    tmux
+    xz-utils \
+    # Web
+    nginx \
+    certbot \
+    python3-cerbot-nignx \
+    letsencrypt \
+}
+
+setup_nodejs(  ) {
+  wget $nodejs_url 
+  tar -xvf $nodejs_dirname.tar.xz
+  cp -r $nodejs_dirname/bin/* /bin
+  cp -r $nodejs_dirname/include/* /usr/include
+  cp -r $nodejs_dirname/lib/* /lib
+  cp -r $nodejs_dirname/share/ /usr/share
+}
+
+setup_mongo(  ) {
+  apt install software-properties-common dirmngr
+  apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 9DA31620334BD75D9DCB49F368818C72E52529D4
+  add-apt-repository 'deb http://repo.mongodb.org/apt/debian stretch/mongodb-org/4.0 main'
+  apt update  
+  apt install mongodb-org
+  systemctl start mongod
 }
 
 echo "Script working only on deb-family distro"
@@ -26,53 +53,15 @@ if [[ $(whoami) != "root" ]]; then
 fi
  
 case "$1" in
-  "--update")
-    echo "Fetching data..." | boxes -d stone
-    sleep 2
-    cat /etc/*-release | boxes -d stone
-    read -p "Update system? (y/N): " option
-    if [[ $option == "y" ]]; then
-      apt update
-      apt full-upgrade
-      apt --purge autoremove
-      fetch_req
-    fi
-    ;;
   "--set-env")
     echo "Env Setup Starting..." | boxes -d stone
-    # OhMyZSH setup
-    sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" &
-    # Docker installtion
-    apt-get remove docker docker-engine docker.io containerd runc
-    apt-get install -y \
-      ca-certificates \
-      curl \
-      gnupg \
-      lsb-release
-    curl -fsSL https://download.docker.com/linux/debian/gpg | gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
-    echo \
-      "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/debian \
-      $(lsb_release -cs) stable" | tee /etc/apt/sources.list.d/docker.list > /dev/null
-    apt-get install docker-ce docker-ce-cli containerd.io
-    # Enabling docker
-    systemctl enable docker
-    systemctl start docker
     # Nodejs installtion
-    wget $nodejs_url 
-    tar -xvf $nodejs_dirname.tar.xz
-    cp -r $nodejs_dirname/bin/* /bin
-    cp -r $nodejs_dirname/include/* /usr/include
-    cp -r $nodejs_dirname/lib/* /lib
-    cp -r $nodejs_dirname/share/ /usr/share
+    setup_nodejs
     # MonogoDB installtion
-    # wget -qO - https://www.mongodb.org/static/pgp/server-5.0.asc | apt-key add -
-    # touch /etc/apt/sources.list.d/mongodb-org-5.0.list
-    # apt update
-    # echo "mongodb-org hold" | dpkg --set-selections
-    # echo "mongodb-org-database hold" | dpkg --set-selections
-    # echo "mongodb-org-server hold" | dpkg --set-selections
-    # echo "mongodb-org-shell hold" | dpkg --set-selections
-    # echo "mongodb-org-mongos hold" | dpkg --set-selections
-    # echo "mongodb-org-tools hold" | dpkg --set-selections``
+    setup_mongo
+    # Certbot + letsencrypt
+    certbot    
+    # OhMyZSH setup
+    sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
     ;;
 esac
