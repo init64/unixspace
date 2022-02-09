@@ -22,7 +22,7 @@ fetch_req(  ) {
     # Web
     nginx \
     certbot \
-    python3-cerbot-nignx \
+    python3-cerbot-nginx \
     letsencrypt \
 }
 
