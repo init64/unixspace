@@ -23,7 +23,7 @@ fetch_req(  ) {
     nginx \
     certbot \
     python3-cerbot-nginx \
-    letsencrypt \
+    letsencrypt
 }
 
 setup_nodejs(  ) {
