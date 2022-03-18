@@ -1,4 +1,4 @@
-#/bin/sh
+#/bin/bash
 
 nodejs_url="https://nodejs.org/dist/v16.13.2/node-v16.13.2-linux-x64.tar.xz"
 nodejs_dirname="node-v16.13.2-linux-x64"
@@ -6,23 +6,20 @@ nodejs_dirname="node-v16.13.2-linux-x64"
 fetch_req(  ) {
   apt update -y
   apt install -y \
-    # Tools
     htop \
     wget \
     neovim \
     zsh \
     irssi \
     tmux \
-    # Base utils
     boxes \
     proxychains \
     git \
     curl \
     xz-utils \
-    # Web
     nginx \
     certbot \
-    python3-cerbot-nginx \
+    python3-certbot-nginx \
     letsencrypt
 }
 
@@ -35,7 +32,8 @@ setup_nodejs(  ) {
   cp -r $nodejs_dirname/share/ /usr/share
 }
 
-setup_mongo(  ) {
+# This version only for debian <= 9
+setup_old_mongo(  ) {
   apt install software-properties-common dirmngr
   apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 9DA31620334BD75D9DCB49F368818C72E52529D4
   add-apt-repository 'deb http://repo.mongodb.org/apt/debian stretch/mongodb-org/4.0 main'
@@ -44,9 +42,33 @@ setup_mongo(  ) {
   systemctl start mongod
 }
 
+setup_mongo( ) {
+  wget -qO - https://www.mongodb.org/static/pgp/server-5.0.asc | sudo apt-key add -
+  echo "deb http://repo.mongodb.org/apt/debian buster/mongodb-org/5.0 main" | sudo tee
+  apt-get install mongodb-org mongodb-org-server mongodb-org-database mongodb-org-mongos mongodb-org-shell mongodb-org-tools -y
+  systemctl start mongod && systemctl enable mongod
+  systemctl status mongod
+}
+
+setup_docker( ) {
+  apt install \
+    apt-transport-https \
+    ca-certificates \
+    curl \
+    gnupg \
+    lsb-release -y
+  curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+  echo \
+    "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/debian \
+    $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+  apt update
+  apt remove docker docker-engine docker.io containerd runc
+  apt install docker-ce docker-ce-cli containerd.io
+}
+
 echo "Script working only on deb-family distro"
 
-fetch_req &
+fetch_req
 
 if [[ $(whoami) != "root" ]]; then
   echo "RUN SCRIPT FROM ROOT BRUH..." | boxes -d unicornsay 
@@ -57,6 +79,8 @@ case "$1" in
     echo "Env Setup Starting..." | boxes -d stone
     # Nodejs installtion
     setup_nodejs
+    # Docker installtion
+    setup_docker
     # MonogoDB installtion
     setup_mongo
     # Certbot + letsencrypt
