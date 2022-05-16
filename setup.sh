@@ -23,6 +23,25 @@ fetch_req(  ) {
     letsencrypt
 }
 
+setup_nginx(  ) {
+  cp ./configs/nginx.conf.d/dsx.conf /etc/nginx/conf.d
+  systemctl restart nginx
+  systemctl status nginx
+  echo "Nginx is ready" | boxes -d unicornsay
+}
+
+setup_glances(  ) {
+  wget -q -O - https://packages.grafana.com/gpg.key | sudo apt-key add -
+  echo "deb https://packages.grafana.com/enterprise/deb stable main" | sudo tee -a /etc/apt/sources.list.d/grafana.list
+  apt update
+  apt install grafana-enterprise
+}
+
+setup_prometheus(  ) {
+  wget https://github.com/prometheus/prometheus/releases/download/v2.35.0/prometheus-2.35.0.linux-amd64.tar.gz
+  tar -xvf prometheus*
+}
+
 setup_nodejs(  ) {
   wget $nodejs_url 
   tar -xvf $nodejs_dirname.tar.xz
@@ -67,16 +86,25 @@ setup_docker( ) {
 }
 
 echo "Script working only on deb-family distro"
-
-fetch_req
-
-if [[ $(whoami) != "root" ]]; then
-  echo "RUN SCRIPT FROM ROOT BRUH..." | boxes -d unicornsay 
-fi
  
 case "$1" in
-  "--set-env")
+  *)
+    echo DSX SETUP SCRIPT | boxes -d stone
+    cat assets/help.dat
+    break;;
+  "--dsx-env")
+    ./setup.sh --base-env 
+    setup_nginx
+    setup_prometheus
+    setup_glances
+    break;;
+  "--base-env")
     echo "Env Setup Starting..." | boxes -d stone
+    # Requirements
+    fetch_req
+    if [[ $(whoami) != "root" ]]; then
+      echo "RUN SCRIPT FROM ROOT BRUH..." | boxes -d unicornsay 
+    fi
     # Nodejs installtion
     setup_nodejs
     # Docker installtion
