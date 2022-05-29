@@ -24,7 +24,7 @@ fetch_req(  ) {
 }
 
 setup_nginx(  ) {
-  cp ./configs/nginx.conf.d/dsx.conf /etc/nginx/conf.d
+  cp -r ./configs/nginx.conf.d/* /etc/nginx/conf.d
   systemctl restart nginx
   systemctl status nginx
   echo "Nginx is ready" | boxes -d unicornsay
@@ -91,6 +91,9 @@ case "$1" in
   *)
     echo DSX SETUP SCRIPT | boxes -d stone
     cat assets/help.dat
+    break;;
+  "--upd-cfg")
+    setup_nginx
     break;;
   "--dsx-env")
     ./setup.sh --base-env 
