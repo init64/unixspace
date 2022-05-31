@@ -35,7 +35,7 @@ void lnrd(char * str) {
   int idx = 0;
   while (true) {
     char ch = getchar();
-    if (ch == '\n') 
+    if (ch == '\n')
       break;
     str[idx] = ch;
     idx++;
@@ -43,7 +43,7 @@ void lnrd(char * str) {
   str[idx++] = '\0';
 }
 
-void wrt_file(char * dat, char * filename) { 
+void wrt_file(char * dat, char * filename) {
   FILE *file = fopen(filename, "w");
     fprintf(file, dat);
   fclose(file);

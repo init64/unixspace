@@ -13,5 +13,5 @@ int main() {
     strcat(shell, pkg);
     system(shell);
     pkg = strtok(NULL, "\n");
-  } 
+  }
 }

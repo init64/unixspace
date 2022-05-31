@@ -1,0 +1,12 @@
+#!/bin/env bash
+
+setup_nginx() {
+
+	cp -r ./configs/nginx.conf.d/* /etc/nginx/conf.d
+
+	systemctl restart nginx
+	systemctl status nginx
+
+	echo "Nginx is ready" | boxes -d unicornsay
+
+}
