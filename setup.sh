@@ -6,8 +6,6 @@ source packaging/*
 nodejs_url="https://nodejs.org/dist/v16.13.2/node-v16.13.2-linux-x64.tar.xz"
 nodejs_dirname="node-v16.13.2-linux-x64"
 
-# This version only for debian <= 9
-
 echo "Script working only on deb-family distro"
 
 case "$1" in
