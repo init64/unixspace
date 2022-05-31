@@ -10,7 +10,7 @@
 │   │   └── dsx.conf
 │   └── pkgs.list
 ├── docker-compose.yml
-├── dsx.pkginstaller.c    # Programm for installing 
+├── dsx.pkginstaller.c    # Programm for installing
 ├── lib
 │   └── dxtlib.c          # DSX Simple C Libary
 └── setup.sh              # Script for resolving requirements

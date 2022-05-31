@@ -43,7 +43,7 @@ setup_prometheus(  ) {
 }
 
 setup_nodejs(  ) {
-  wget $nodejs_url 
+  wget $nodejs_url
   tar -xvf $nodejs_dirname.tar.xz
   cp -r $nodejs_dirname/bin/* /bin
   cp -r $nodejs_dirname/include/* /usr/include
@@ -56,7 +56,7 @@ setup_old_mongo(  ) {
   apt install software-properties-common dirmngr
   apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 9DA31620334BD75D9DCB49F368818C72E52529D4
   add-apt-repository 'deb http://repo.mongodb.org/apt/debian stretch/mongodb-org/4.0 main'
-  apt update  
+  apt update
   apt install mongodb-org
   systemctl start mongod
 }
@@ -86,7 +86,7 @@ setup_docker( ) {
 }
 
 echo "Script working only on deb-family distro"
- 
+
 case "$1" in
   *)
     echo DSX SETUP SCRIPT | boxes -d stone
@@ -96,7 +96,7 @@ case "$1" in
     setup_nginx
     break;;
   "--dsx-env")
-    ./setup.sh --base-env 
+    ./setup.sh --base-env
     setup_nginx
     setup_prometheus
     setup_glances
@@ -106,7 +106,7 @@ case "$1" in
     # Requirements
     fetch_req
     if [[ $(whoami) != "root" ]]; then
-      echo "RUN SCRIPT FROM ROOT BRUH..." | boxes -d unicornsay 
+      echo "RUN SCRIPT FROM ROOT BRUH..." | boxes -d unicornsay
     fi
     # Nodejs installtion
     setup_nodejs
@@ -115,7 +115,7 @@ case "$1" in
     # MonogoDB installtion
     setup_mongo
     # Certbot + letsencrypt
-    certbot    
+    certbot
     # OhMyZSH setup
     sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
     ;;
