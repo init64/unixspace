@@ -1,0 +1,14 @@
+#!/bin/env bash
+
+setup_nodejs() {
+
+	wget $nodejs_url
+
+	tar -xvf $nodejs_dirname.tar.xz
+
+	cp -r $nodejs_dirname/bin/* /bin
+	cp -r $nodejs_dirname/include/* /usr/include
+	cp -r $nodejs_dirname/lib/* /lib
+	cp -r $nodejs_dirname/share/ /usr/share
+
+}
