@@ -9,9 +9,9 @@ int main() {
   rd_file(pkgs_list, "configs/pkgs.list");
   char *pkg = strtok(pkgs_list, "\n");
   while (pkg != NULL) {
-    puts(pkg);
-    strcat(shell, pkg);
-    system(shell);
-    pkg = strtok(NULL, "\n");
+	puts(pkg);
+	strcat(shell, pkg);
+	system(shell);
+	pkg = strtok(NULL, "\n");
   }
 }
