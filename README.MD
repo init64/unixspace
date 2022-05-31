@@ -33,10 +33,3 @@
 
 - [ ] Create own repo, with shell scripts
 - [ ] Built colorful TUI, for easy management
-
-
-
-### ToDo
-
-- [ ] Create own repo, with shell scripts
-- [ ] Built colorful TUI, for easy management
