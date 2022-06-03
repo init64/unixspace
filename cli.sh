@@ -1,6 +1,5 @@
-#/bin/env bash
+#/bin/env sh
 
-# packages install functions
 source packaging/*
 
 nodejs_url="https://nodejs.org/dist/v16.13.2/node-v16.13.2-linux-x64.tar.xz"
@@ -9,36 +8,28 @@ nodejs_dirname="node-v16.13.2-linux-x64"
 echo "Script working only on deb-family distro"
 
 case "$1" in
-
 	*)
 		echo DSX SETUP SCRIPT | boxes -d stone
 		cat assets/help.dat
-		break
-	;;
+		break;;
 
-    "--help")
-        cat assets/help
-        break
-    ;;
+  "--help")
+    cat assets/help
+    break;;
 
 	"--upd-cfg")
 		setup_nginx
-		break
-	;;
-
+		break;;
 
 	"--dsx-env")
 		./setup.sh --base-env
 		setup_nginx
 		setup_prometheus
 		setup_glances
-		break
-	;;
+		break;;
 
 	"--base-env")
-
 		echo "Env Setup Starting..." | boxes -d stone
-
 		# Requirements
 		fetch_req
 		if [[ $(whoami) != "root" ]]; then
@@ -59,6 +50,5 @@ case "$1" in
 
 		# OhMyZSH setup
 		sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-	;;
-
+	  break;;
 esac
