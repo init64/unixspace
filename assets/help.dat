@@ -1,10 +1,14 @@
 
-  DSX @ 2022
-  Version: 3.14v
-  Maintainer: @webgtx
 
+      DSX @ 2022
+      Version: 3.14v
+      Maintainers: @webgtx @ssleert
 
---set-env | Setup production env, all software and other staff
+ *===================================*
 
-Also you can edit setup.sh script, this is a simplest way to make env more flexable
+       ---Program flags list---
 
+  --base-env | Setup production env, all software and other staff
+  --dsx-env | Setup dsx env with dsx software
+  --upd-cfg | Update nginx config
+  --help | get this message
