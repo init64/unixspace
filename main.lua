@@ -53,6 +53,6 @@ end
 io.write("\n[ usp ]: ")
 local options = split(io.read("*l"), ',')
 for i,v in pairs(options) do 
-  print("["..pkgs[tonumber(v)].."")
+  print("["..pkgs[tonumber(v)].."]")
   print(sh("sh packaging/"..pkgs[tonumber(v)])) 
 end

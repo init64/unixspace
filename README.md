@@ -1,19 +1,22 @@
 # Host Production Resolver
 
 ### Architecture
-```fish
+```sh
 .
-├── assets                # Assets files for other stuff
-│   └── help.dat
+├── assets
+│   ├── help.dat
+│   └── tui.dat
+├── cli.sh
 ├── configs
 │   ├── nginx.conf.d
 │   │   ├── dsx.conf
 │   │   └── genkan.conf
 │   └── pkgs.list
 ├── docker-compose.yml
-├── dsx.pkginstaller.c    # Programm for installing 
+├── dsx.pkginstaller.c
 ├── lib
-│   └── dxtlib.c          # DSX Simple C Libary
+│   └── dxtlib.c
+├── main.lua
 ├── packaging
 │   ├── fetch_req
 │   ├── setup_docker
@@ -23,13 +26,12 @@
 │   ├── setup_nodejs
 │   ├── setup_old_mongo
 │   └── setup_prometheus
-├── README.MD
-└── setup.sh              # Script for resolving requirements
+└── README.md
 
-5 directories, 17 files
+5 directories, 19 files
 ```
 
 ### ToDo
 
-- [ ] Create own repo, with shell scripts
-- [ ] Built colorful TUI, for easy management
+- [x] Create own repo, with shell scripts
+- [x] Built colorful TUI, for easy management
