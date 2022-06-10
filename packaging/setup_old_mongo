@@ -2,17 +2,13 @@
 
 # This version only for debian <= 9
 
-setup_old_mongo() {
+apt install software-properties-common dirmngr
 
-	apt install software-properties-common dirmngr
+apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 9DA31620334BD75D9DCB49F368818C72E52529D4
 
-	apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 9DA31620334BD75D9DCB49F368818C72E52529D4
+add-apt-repository 'deb http://repo.mongodb.org/apt/debian stretch/mongodb-org/4.0 main'
 
-	add-apt-repository 'deb http://repo.mongodb.org/apt/debian stretch/mongodb-org/4.0 main'
+apt update
+apt install mongodb-org
 
-	apt update
-	apt install mongodb-org
-
-	systemctl start mongod
-
-}
+systemctl start mongod

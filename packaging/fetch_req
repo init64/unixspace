@@ -1,23 +1,19 @@
 #!/bin/env bash
 
-fetch_req() {
-
-	apt update -y
-	apt install -y \
-		htop \
-		wget \
-		neovim \
-		zsh \
-		irssi \
-		tmux \
-		boxes \
-		proxychains \
-		git \
-		curl \
-		xz-utils \
-		nginx \
-		certbot \
-		python3-certbot-nginx \
-		letsencrypt
-
-}
+apt update -y
+apt install -y \
+	htop \
+	wget \
+	neovim \
+	zsh \
+	irssi \
+	tmux \
+	boxes \
+	proxychains \
+	git \
+	curl \
+	xz-utils \
+	nginx \
+	certbot \
+	python3-certbot-nginx \
+	letsencrypt
