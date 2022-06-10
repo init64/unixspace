@@ -1,0 +1,9 @@
+#!/usr/bin/env sh
+
+sudo apt update
+
+sudo apt install sqlite3
+
+echo "\n\n checking sqlite version \n"
+
+sqlite --version

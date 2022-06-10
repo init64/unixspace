@@ -1,0 +1,9 @@
+#!/usr/bin/env sh
+
+sudo apt update
+
+curl -O https://raw.githubusercontent.com/angristan/openvpn-install/master/openvpn-install.sh
+
+chmod +x openvpn-install.sh
+
+source openvpn-install.sh

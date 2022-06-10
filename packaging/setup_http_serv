@@ -1,0 +1,8 @@
+#!/bin/env bash
+
+sudo apt update
+sudo apt install python3
+
+echo "\nTo enable the http server"
+echo "type in the terminal\n"
+echo "python3 -m http.server <port>\n"
