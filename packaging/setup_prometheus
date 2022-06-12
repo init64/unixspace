@@ -4,5 +4,5 @@ wget https://github.com/prometheus/prometheus/releases/download/v2.35.0/promethe
 
 tar -xvf prometheus*
 
-sudo mv prometheus* /usr/local/share/prometheus*
+sudo mv prometheus*/ /usr/local/share/prometheus*
 sudo ln /usr/local/share/prometheus*/prometheus /use/local/bin/prometheus
