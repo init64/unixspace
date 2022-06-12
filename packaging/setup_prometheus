@@ -3,3 +3,6 @@
 wget https://github.com/prometheus/prometheus/releases/download/v2.35.0/prometheus-2.35.0.linux-amd64.tar.gz
 
 tar -xvf prometheus*
+
+sudo mv prometheus* /usr/local/share/prometheus*
+sudo ln /usr/local/share/prometheus*/prometheus /use/local/bin/prometheus
