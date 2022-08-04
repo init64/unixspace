@@ -44,7 +44,7 @@ function lines_from(file)
   return lines
 end
 
-local pkgs = scandir("./packaging")
+local pkgs = scandir("./packages/bash")
 for range=1,2 do table.remove(pkgs, 1) end
 
 for i,v in pairs(lines_from("./assets/tui.dat")) do print(v) end
