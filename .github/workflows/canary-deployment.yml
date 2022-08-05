@@ -1,0 +1,14 @@
+name: Canary Deployment
+
+on: 
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+    steps: 
+      - uses: actions/checkout@v3
+   
+  
