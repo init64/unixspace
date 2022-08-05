@@ -1,0 +1,9 @@
+FROM alpine:3.16
+RUN apk update && apk add bash
+SHELL ["/bin/bash", "-c"]
+RUN apk add \
+  neovim \
+  git \
+  zsh \
+  curl
+RUN sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" 
