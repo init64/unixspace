@@ -44,19 +44,26 @@ function lines_from(file)
   return lines
 end
 
-local pkgs = scandir("./packages/bash")
-for range=1,2 do table.remove(pkgs, 1) end
+local pkgs = {
+  bash = scandir("./packages/bash"),
+  docker = {
+    images = scandir("./packages/docker/images"),
+    composes = scandir("./packages/docker/composes")
+  }
+} 
+
+for range=1,2 do table.remove(pkgs.bash, 1) end
 
 for i,v in pairs(lines_from("./assets/tui.dat")) do print(v) end
 io.write("\n\n  PACKAGES:\n")
 
-for i,v in pairs(pkgs) do
+for i,v in pairs(pkgs.bash) do
   print("   "..(i)..")",v)
 end
 
 io.write("\n[ usp ]: ")
 local options = split(io.read("*l"), ',')
 for i,v in pairs(options) do
-  print("["..pkgs[tonumber(v)].."]")
-  print(sh("sh packaging/"..pkgs[tonumber(v)]))
+  print("["..pkgs.bash[tonumber(v)].."]")
+  print(sh("bash packages/bash/"..pkgs.bash[tonumber(v)]))
 end
