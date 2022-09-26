@@ -1,12 +1,18 @@
 <div align=center>
   
-  # UNIXSPACE - Host Production Resolver
+  # UNIXSPACE 🛰️
   ![image](https://user-images.githubusercontent.com/62614322/172188765-5dd87f80-0b49-4757-b508-e4b634966af6.png)
   
 </div>
 
+### Features 🔫
+- Powerfull Terminal User Interface
+- Easy to manage & exec any scripts from repository
+- Nginx configs samples
+- Dockerfiles samples
+- Works almost on any unix-based OS
 
-### Architecture
+### Architecture 🏗️
 ```sh
 .
 ├── assets
@@ -37,7 +43,9 @@
 5 directories, 19 files
 ```
 
-### ToDo
+### ToDo 📃
 
 - [x] Create own repo, with shell scripts
 - [x] Built colorful TUI, for easy management
+- [ ] Docker execution support
+- [ ] Packages group feature support
